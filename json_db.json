@@ -1,0 +1,16 @@
+[
+    {
+        "ReviewID": 1,
+        "GuestID": 2,
+        "Rating": 5,
+        "Comment": "Wunderful",
+        "Date": "10.10.2010"
+    },
+    {
+        "ReviewID": 2,
+        "GuestID": 3,
+        "Rating": 4,
+        "Comment": "Great",
+        "Date": "20.10.2020"
+    }
+]

@@ -1,42 +1,36 @@
-import csv
+import json
 import sqlite3
 
 # Connect to SQLite (creates the database file if it doesn't exist)
-conn = sqlite3.connect('database2.db')
+conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
-cursor.execute('DROP TABLE IF EXISTS Guest')
+cursor.execute('DROP TABLE IF EXISTS Review')
 
 # Create the Guest table
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS Guest (
-    GuestID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Firstname TEXT NOT NULL,
-    Lastname TEXT NOT NULL,
-    Country TEXT,
-    Email TEXT NOT NULL,
-    Phone INTEGER,
-    LoyaltyPoints INTEGER,
-    Review TEXT
+CREATE TABLE IF NOT EXISTS Review (
+    ReviewID INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuestID INT,
+    Rating INT NOT NULL,
+    Comment TEXT,
+    Date DATE
 )
 ''')
 
 # Read the CSV file and insert data into the table
-with open('guest_info.csv', 'r', encoding='utf-8') as file:
-    csv_reader = csv.DictReader(file, delimiter=',')  # Change to comma
-    print("CSV Headers:", csv_reader.fieldnames)  # Confirm headers are as expected
+with open('json_db.json', 'r') as file:
+    json_data = json.load(file)
 
     # Insert data from CSV into the Guest table
-    for guest in csv_reader:
+    for row in json_data:
         cursor.execute('''
-        INSERT INTO Guest (Firstname, Lastname, Country, Email, Phone, LoyaltyPoints)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO Review (GuestID, Rating, Comment, Date)
+        VALUES (?, ?, ?, ?)
         ''', (
-            guest["First Name"].strip(),
-            guest["Last Name"].strip(),
-            guest["Country"].strip(),
-            guest["Email"].strip(),
-            int(guest["Phone"].strip()) if guest["Phone"].strip().isdigit() else None,
-            int(guest["LoyaltyPoints"].strip()) if guest["LoyaltyPoints"].strip().isdigit() else 0
+            row["GuestID"],
+            row["Rating"],
+            row["Comment"],
+            row["Date"]
         ))
 
 # Commit and close the connection
