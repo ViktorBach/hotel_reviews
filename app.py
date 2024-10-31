@@ -41,4 +41,4 @@ def remove_review(review_id):
     return jsonify(result), status_code
 
 
-app.run(host='0.0.0.0', port=6000)
+app.run(host='0.0.0.0', port=5003)
