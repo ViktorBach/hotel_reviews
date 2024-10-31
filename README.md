@@ -22,7 +22,7 @@ Setup Instructions
 
     bash
 
-git clone https://github.com/your-username/review-microservice.git
+git clone https://github.com/your-username/hotel_reviews.git
 cd review-microservice
 
 Install dependencies
