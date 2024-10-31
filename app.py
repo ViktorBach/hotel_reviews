@@ -6,24 +6,24 @@ app = Flask(__name__)
 
 ########### CRUD method GET ############
 
-@app.route('/reviews', methods=['GET'])
+@app.route('/reviews', methods=['GET']) # get all reviews
 def get_all_reviews():
     reviews = fetch_review()
     return jsonify(reviews)
 
-@app.route('/reviews/guest/<int:guest_id>', methods=['GET'])
+@app.route('/reviews/guest/<int:guest_id>', methods=['GET']) # get review from guest id
 def get_review(guest_id):
     reviews = fetch_review()
     return jsonify([review for review in reviews if review['guestID'] == id])
 
-@app.route('/reviews/<int:id>', methods=['GET'])
+@app.route('/reviews/<int:id>', methods=['GET']) # get review from review id
 def get_review(id):
     reviews = fetch_review()
     return jsonify([review for review in reviews if review['reviewID'] == id])
 
 ########### CRUD method Post ############
 
-@app.route('/review', methods=['POST'])
+@app.route('/review', methods=['POST']) 
 def add_review():
     data = request.get_json()
     if not data:
