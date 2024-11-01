@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Port that Flask uses
-EXPOSE 5000
+EXPOSE 5003
 
 # Set environment variable to make sure that Flask runs in production mode by default
 ENV FLASK_ENV=production
